@@ -10,19 +10,20 @@
 
 #### User-defined variables
 ## Define the directory where your .pkg files are located. This directory will be looped through recursively.
-pkgdir='/Users/USERNAME/Downloads/garageband/garageband'
+pkgdir='/Users/Shared'
 
 ## What is the category and developer for these .pkg files?
-pkgcategory='Multimedia'
-pkgdeveloper='Apple'
+pkgcategory='fuze room configuration'
+pkgdeveloper='SQ'
+location='fuze room profiles'
 
 ## Double-check that the Munki commands we want to run are available
 if [ -f "/usr/local/munki/munkiimport" ] && [ -f "/usr/local/munki/makecatalogs" ]; then
 
    # Get the absolute path to all .pkg files in this directory and its subdirectories
-   find "$pkgdir" -type f -name '*.pkg' | while read pkg; do
+   find "$pkgdir" -type f -name '*.mobileconfig' | while read pkg; do
       # For each .pkg, import in nointeractive mode
-      /usr/local/munki/munkiimport "$pkg" --nointeractive --unattended_install --category="$pkgcategory" --developer="$pkgdeveloper"
+      /usr/local/munki/munkiimport "$pkg" --nointeractive --unattended_install --category="$pkgcategory" --developer="$pkgdeveloper" --subdirectory="$location" 
    done
 
    # Rebuild the catalogs
